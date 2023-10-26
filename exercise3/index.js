@@ -4,6 +4,8 @@ const PORT = 8080;
 
 app.use(express.json());
 
+
+
 const items = [
     { id: 1, nombre: 'Taza de Harry Potter' , precio: 300},
     { id: 2, nombre: 'FIFA 23 PS5' , precio: 1000},
@@ -13,9 +15,13 @@ const items = [
     { id: 6, nombre: 'Taza de Star Wars' , precio: 220}
 ];
 
+
+
 app.get("/products", (req, res) => {
     res.status(200).send({description:'Products', items:items});
 });
+
+
 
 app.post("/products", (req, res) => {
     const newProduct = {
@@ -26,6 +32,7 @@ app.post("/products", (req, res) => {
     items.push(newProduct);
     res.status(201).send(items)
 });
+
 
 
 // No me funciona
@@ -44,15 +51,25 @@ app.put("/products/:id", (req, res) => {
     };
 });
 
+
+
 app.delete("/products/:id", (req, res) => {
     const found = items.some((product) => product.id == req.params.id);
     if (found) {
-        res.send(items.filter((product) => product.id != req.params.id));
+        res.status(200).send(items.filter((product) => product.id != req.params.id));
     } else {
         res.status(404).send(`Something went wrong with id ${req.params.id}`);
   };
 });
 
+
+
+app.get("/precio/:num", (req,res) => {
+    const checkPrice = items.some((product) => product.price == req.params.num);
+    if (checkPrice) {
+        res.status(200).send(items.filter((product) => product.price == req.params.num));
+    }
+})
 
 
 
