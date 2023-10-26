@@ -27,6 +27,33 @@ app.post("/products", (req, res) => {
     res.status(201).send(items)
 });
 
-app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`)
+
+// No me funciona
+app.put("/products/:id", (req, res) => {
+    const found = items.some((product) => product.id == req.params.id);
+    if (found) {
+        items.forEach(product => {
+            if (product.id == req.params.id) {
+                product.name = req.body.name;
+                product.price = req.body.price;
+            };
+        });
+        res.status(200).send(items)
+    } else {
+        res.status(404).send(`Something went wrong with id ${req.params.id}`);
+    };
 });
+
+app.delete("/products/:id", (req, res) => {
+    const found = items.some((product) => product.id == req.params.id);
+    if (found) {
+        res.send(items.filter((product) => product.id != req.params.id));
+    } else {
+        res.status(404).send(`Something went wrong with id ${req.params.id}`);
+  };
+});
+
+
+
+
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
