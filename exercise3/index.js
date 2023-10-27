@@ -65,9 +65,38 @@ app.delete("/products/:id", (req, res) => {
 
 
 app.get("/precio/:num", (req,res) => {
-    const checkPrice = items.some((product) => product.price == req.params.num);
+    const checkPrice = items.some(product => product.precio == req.params.num);
     if (checkPrice) {
-        res.status(200).send(items.filter((product) => product.price == req.params.num));
+        res.status(200).send(items.filter(product => product.precio == req.params.num));
+    }else {
+        res.status(404).send(`There's no products with price ${req.params.precio}`)
+    }
+})
+
+app.get('/products/50-250/', (req, res) => {
+    const found = items.some(product => product.precio > 50 && product.precio < 250);
+    if (found) {
+        res.status(200).send(items.filter(product => product.precio > 50 && product.precio < 250))
+    } else {
+        res.status(404).send(`There's no products with price between 50 and 250`)
+    }
+})
+
+app.get('/products/find_price/', (req, res) => {
+    const found = items.some(product => product.precio == req.body.precio);
+    if (found) {
+        res.status(200).send(items.filter(product => product.precio == req.body.precio))
+    } else {
+        res.status(404).send(`There's no products with price ${req.body.precio}`)
+    }
+})
+
+app.get('/products/find_name/', (req, res) => {
+    const found = items.some(products => products.nombre == req.body.nombre);
+    if (found) {
+        res.status(200).send(items.filter(products => products.nombre == req.body.nombre))
+    } else {
+        res.status(404).send(`There's no products with price ${req.body.nombre}`)
     }
 })
 
