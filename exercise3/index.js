@@ -92,8 +92,7 @@ app.get('/products/find_price/', (req, res) => {
     }
 });
 
-// NO ME VA
-app.get('/products/:name', (req, res) => {
+app.get('/find/:name', (req, res) => {
     const check = items.some(products => products.nombre == req.params.name);
     if (check) {
         res.status(200).send(items.filter(products => products.nombre == req.params.name))
