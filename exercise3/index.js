@@ -35,14 +35,15 @@ app.post("/products", (req, res) => {
 
 
 
-// No me funciona
 app.put("/products/:id", (req, res) => {
+    // Chequea si el id que le pasamos existe dentro del array de items
     const found = items.some((product) => product.id == req.params.id);
+    // Si ese id existe, entonces ejecuta la accion
     if (found) {
         items.forEach(product => {
             if (product.id == req.params.id) {
-                product.name = req.body.name;
-                product.price = req.body.price;
+                product.nombre = req.body.nombre;
+                product.precio = req.body.precio;
             };
         });
         res.status(200).send(items)
