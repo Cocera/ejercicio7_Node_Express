@@ -90,16 +90,17 @@ app.get('/products/find_price/', (req, res) => {
     } else {
         res.status(404).send(`There's no products with price ${req.body.precio}`)
     }
-})
+});
 
-app.get('/products/find_name/', (req, res) => {
-    const found = items.some(products => products.nombre == req.body.nombre);
-    if (found) {
-        res.status(200).send(items.filter(products => products.nombre == req.body.nombre))
+// NO ME VA
+app.get('/products/:name', (req, res) => {
+    const check = items.some(products => products.nombre == req.params.name);
+    if (check) {
+        res.status(200).send(items.filter(products => products.nombre == req.params.name))
     } else {
-        res.status(404).send(`There's no products with price ${req.body.nombre}`)
+        res.status(404).send(`There's no products with name ${req.params.name}`)
     }
-})
+});
 
 
 
